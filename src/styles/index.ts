@@ -1,0 +1,1 @@
+export { appVariants } from './app'
