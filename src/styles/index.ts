@@ -1,1 +1,1 @@
-export { appVariants } from './app'
+export { signInVariants } from './signInVariants'
