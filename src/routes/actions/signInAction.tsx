@@ -5,9 +5,19 @@ export const signInAction: ActionFunction = async ({ request }) => {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
-  if (!email || !password) {
-    return { error: 'All fields are required!' }
+  const errors: Record<string, string> = {}
+
+  if (!email) {
+    errors.email = 'Email is required!'
   }
 
-  return { email, password }
+  if (!password) {
+    errors.password = 'Password is required!'
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { errors }
+  }
+
+  return { errors }
 }

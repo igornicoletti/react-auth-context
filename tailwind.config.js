@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        'pulse-slow': 'pulse 3s linear infinite',
+      },
       colors: {
         'light-gray': '#F8F8F2',
         'dark-gray': '#282A36',
