@@ -1,50 +1,53 @@
 import { useState } from 'react'
 import { Form, Link, useActionData } from 'react-router-dom'
 import { Cow, Eye, EyeSlash } from '@phosphor-icons/react'
-import { authVariants } from '../styles'
+import { authVariants, formVariants } from '../styles'
 
-const { container, wrapper, logo, title, form, formGroup, groupInput, groupButton, groupIcon, formButton, formPrivacy, separator, account, accountLink } = authVariants()
+const { account, accountLink, logo, title, container, wrapper } = authVariants()
+const { form, field, fieldInput, fieldPassword, fieldButton, fieldIcon, terms, termsLink, submit } = formVariants()
 
 export const SignUp = () => {
   const data = useActionData()
   const [showPwd, setShowPwd] = useState<boolean>(false)
+
+  const handleTogglePwd = () =>
+    setShowPwd((prev) => !prev)
 
   console.log(data)
 
   return (
     <div className={container()}>
       <div className={wrapper()}>
-        <div className={form()}>
-          <Cow className={logo()} weight='duotone' />
-          <h2 className={title()}>Sign up and join the herd</h2>
-        </div>
-
+        <Cow className={logo()} weight='duotone' />
+        <h2 className={title()}>Sign up and join the herd</h2>
         <Form className={form()} method='post'>
-          <div className={formGroup()}>
+          <div className={field()}>
             <label htmlFor='fullName'>Full name</label>
-            <input className={groupInput()} id='fullName' name='fullName' type='text' />
+            <input className={fieldInput()} id='fullName' name='fullName' type='text' />
           </div>
-          <div className={formGroup()}>
-            <label htmlFor='email'>Email address</label>
-            <input className={groupInput()} id='email' name='email' type='email' />
+          <div className={field()}>
+            <label htmlFor='email'>Email</label>
+            <input className={fieldInput()} id='email' name='email' type='email' />
           </div>
-          <div className={formGroup()}>
+          <div className={field()}>
             <label htmlFor='password'>Password</label>
-            <div className={separator()}>
-              <input className={groupInput()} id='password' name='password' type={!showPwd ? 'password' : 'text'} />
-              <button className={groupButton()} onClick={() => setShowPwd((prev) => !prev)} type='button'>
+            <div className={fieldPassword()}>
+              <input className={fieldInput()} id='password' name='password' type={!showPwd ? 'password' : 'text'} />
+              <button className={fieldButton()} onClick={handleTogglePwd} type='button' aria-label={!showPwd ? 'Show password' : 'Hide password'}>
                 {!showPwd
-                  ? <Eye className={groupIcon()} weight='duotone' />
-                  : <EyeSlash className={groupIcon()} weight='duotone' />}
+                  ? <Eye className={fieldIcon()} weight='duotone' />
+                  : <EyeSlash className={fieldIcon()} weight='duotone' />}
               </button>
             </div>
           </div>
-          <p className={formPrivacy()}>By registering, you accept our terms of use and ours privacy policy.</p>
-          <button className={formButton()} type='submit'>Sign up</button>
+          <p className={terms()}>By registering, you accept our{' '}
+            <Link className={termsLink()} to={'/terms'}>terms of use</Link> and{' '}
+            <Link className={termsLink()} to={'/privacy'}>privacy policy</Link>.
+          </p>
+          <button className={submit()} type='submit'>Sign up</button>
         </Form>
-        <p className={account()}>
-          Already have an account?{' '}
-          <Link to={'/'} className={accountLink()}>Sign in</Link>
+        <p className={account()}>Already have an account?{' '}
+          <Link className={accountLink()} to={'/signin'}>Sign in</Link>
         </p>
       </div>
     </div>

@@ -7,22 +7,19 @@ export default {
   ],
   theme: {
     extend: {
-      animation: {
-        'pulse-slow': 'pulse 3s linear infinite',
-      },
       colors: {
-        'light-gray': '#F8F8F2',
-        'dark-gray': '#282A36',
-        'charcoal-gray': '#2F313F',
-        'steel-gray': '#44475A',
-        'purple-blue': '#6272A4',
-        'lavender-purple': '#BD93F9',
-        'aqua-blue': '#8BE9FD',
-        'neon-green': '#50FA7B',
-        'pale-yellow': '#F1FA8C',
-        'warm-orange': '#FFB86C',
-        'bright-pink': '#FF79C6',
-        'vivid-red': '#FF5555'
+        'dracula-light': '#F8F8F2',
+        'dracula-dark': '#282A36',
+        'dracula-charcoal': '#2F313F',
+        'dracula-steel': '#44475A',
+        'dracula-blue': '#6272A4',
+        'dracula-purple': '#BD93F9',
+        'dracula-cyan': '#8BE9FD',
+        'dracula-green': '#50FA7B',
+        'dracula-yellow': '#F1FA8C',
+        'dracula-orange': '#FFB86C',
+        'dracula-pink': '#FF79C6',
+        'dracula-red': '#FF5555'
       },
     },
   },
