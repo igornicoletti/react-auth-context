@@ -18,7 +18,7 @@ export const SignUp = () => {
   return (
     <div className={container()}>
       <div className={wrapper()}>
-        <Cow className={logo()} weight='duotone' />
+        <Cow className={logo()} weight='duotone' aria-hidden='true' />
         <h2 className={title()}>Sign up and join the herd</h2>
         <Form className={form()} method='post'>
           <div className={field()}>
@@ -35,8 +35,8 @@ export const SignUp = () => {
               <input className={fieldInput()} id='password' name='password' type={!showPwd ? 'password' : 'text'} />
               <button className={fieldButton()} onClick={handleTogglePwd} type='button' aria-label={!showPwd ? 'Show password' : 'Hide password'}>
                 {!showPwd
-                  ? <Eye className={fieldIcon()} weight='duotone' />
-                  : <EyeSlash className={fieldIcon()} weight='duotone' />}
+                  ? <Eye className={fieldIcon()} weight='duotone' aria-hidden='true' />
+                  : <EyeSlash className={fieldIcon()} weight='duotone' aria-hidden='true' />}
               </button>
             </div>
           </div>

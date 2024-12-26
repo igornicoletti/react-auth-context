@@ -17,10 +17,10 @@ export const ThemeSwitch = () => {
       <span className={label()}>Theme mode</span>
       <span className={thumb()}>
         <span className={thumbSun()} aria-hidden={true}>
-          <SunDim className={thumbIcon()} weight='duotone' />
+          <SunDim className={thumbIcon()} aria-hidden={true} weight='duotone' />
         </span>
         <span className={thumbMoon()} aria-hidden={true}>
-          <MoonStars className={thumbIcon()} weight='duotone' />
+          <MoonStars className={thumbIcon()} aria-hidden={true} weight='duotone' />
         </span>
       </span>
     </Switch>

@@ -1,11 +1,26 @@
 import { useContext } from 'react'
 import { ToastContext } from '../contexts'
-import { ToastContextProvider } from '../types'
+import { Toast } from '../types'
 
-export const useToast = ((): ToastContextProvider => {
+export const useToast = () => {
   const context = useContext(ToastContext)
+
   if (!context) {
     throw new Error('useToast must be used within a ToastProvider')
   }
-  return context
-})
+
+  const { toast, addToast, hideToast } = context
+
+  const toastMethod = (type: Toast['type']) =>
+    (props: Omit<Toast, 'id' | 'status' | 'type'>) =>
+      addToast({ ...props, type })
+
+  return {
+    toast,
+    hideToast,
+    success: toastMethod('success'),
+    error: toastMethod('error'),
+    info: toastMethod('info'),
+    warning: toastMethod('warning'),
+  }
+}

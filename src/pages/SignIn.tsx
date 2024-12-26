@@ -3,23 +3,42 @@ import { useState } from 'react'
 import { Form, Link, useActionData } from 'react-router-dom'
 import { Check, Cow, Eye, EyeSlash, GithubLogo, GoogleLogo } from '@phosphor-icons/react'
 import { authVariants, formVariants } from '../styles'
+import { useToast } from '../hooks'
 
 const { account, accountLink, divide, divideLine, divideText, connect, connectIcon, connectButton, logo, title, container, wrapper } = authVariants()
 const { form, field, fieldInput, fieldPassword, fieldButton, fieldIcon, action, actionRemember, actionCheckbox, actionInput, actionIcon, actionForgot, submit } = formVariants()
 
 export const SignIn = () => {
   const data = useActionData()
+  const toast = useToast()
   const [showPwd, setShowPwd] = useState<boolean>(false)
 
-  const handleTogglePwd = () =>
+  const handleTogglePwd = () => {
     setShowPwd((prev) => !prev)
+  }
+
+  const handleGoogle = () => {
+    toast.info({
+      title: 'Moo-ve Google!',
+      message: 'Welcome to back your account.'
+    })
+  }
+
+  const handleGithub = () => {
+    toast.success({
+      title: 'Moo-ve Github!',
+      message: 'Welcome to back your account.',
+      duration: 10000
+    })
+  }
+
 
   console.log(data)
 
   return (
     <div className={container()}>
       <div className={wrapper()}>
-        <Cow className={logo()} weight='duotone' />
+        <Cow className={logo()} weight='duotone' aria-hidden='true' />
         <h2 className={title()}>Moo-ve into your account</h2>
         <Form className={form()} method='post'>
           <div className={field()}>
@@ -32,8 +51,8 @@ export const SignIn = () => {
               <input className={fieldInput()} id='password' name='password' type={!showPwd ? 'password' : 'text'} />
               <button className={fieldButton()} onClick={handleTogglePwd} type='button' aria-label={!showPwd ? 'Show password' : 'Hide password'}>
                 {!showPwd
-                  ? <Eye className={fieldIcon()} weight='duotone' />
-                  : <EyeSlash className={fieldIcon()} weight='duotone' />}
+                  ? <Eye className={fieldIcon()} weight='duotone' aria-hidden='true' />
+                  : <EyeSlash className={fieldIcon()} weight='duotone' aria-hidden='true' />}
               </button>
             </div>
           </div>
@@ -41,7 +60,7 @@ export const SignIn = () => {
             <div className={actionRemember()}>
               <div className={actionCheckbox()}>
                 <input className={actionInput()} id='remember-me' name='remember-me' type='checkbox' aria-checked='false' />
-                <Check className={actionIcon()} weight='bold' />
+                <Check className={actionIcon()} weight='bold' aria-hidden='true' />
               </div>
               <label htmlFor='remember-me'>Remember me</label>
             </div>
@@ -54,14 +73,14 @@ export const SignIn = () => {
           <p className={divideText()}>Or continue with</p>
         </div>
         <div className={connect()}>
-          <Link className={connectButton()} to='/'>
-            <GoogleLogo className={connectIcon()} weight='duotone' />
+          <button className={connectButton()} type='button' onClick={handleGoogle}>
+            <GoogleLogo className={connectIcon()} weight='duotone' aria-hidden='true' />
             <span>Google</span>
-          </Link>
-          <Link className={connectButton()} to='/'>
-            <GithubLogo className={connectIcon()} weight='duotone' />
+          </button>
+          <button className={connectButton()} type='button' onClick={handleGithub}>
+            <GithubLogo className={connectIcon()} weight='duotone' aria-hidden='true' />
             <span>GitHub</span>
-          </Link>
+          </button>
         </div>
         <p className={account()}>Don&apos;t have an account?{' '}
           <Link className={accountLink()} to='/signup'>Sign up</Link>

@@ -1,15 +1,16 @@
-type ToastType = 'success' | 'error' | 'info' | 'alert'
+export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
 export interface Toast {
   id: string
-  message: string
+  title: string
+  message?: string
+  duration?: number
   type: ToastType
-  duration: number
-  onClose?: () => void
+  status: boolean
 }
 
 export interface ToastContextProvider {
-  toasts: Toast[]
-  addToast: (toast: Toast) => void
-  removeToast: (id: string) => void
+  toast: Toast[]
+  hideToast: (id: Toast['id']) => void
+  addToast: (toast: Omit<Toast, 'id' | 'status'>) => void
 }
