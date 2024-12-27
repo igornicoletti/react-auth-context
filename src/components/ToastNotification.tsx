@@ -18,7 +18,7 @@ const getToastIcon = (type: Toast['type']) => {
 }
 
 export const ToastNotification = (() => {
-  const { toast, hideToast } = useToast()
+  const { toast, removeToast } = useToast()
 
   return (
     <>
@@ -38,7 +38,7 @@ export const ToastNotification = (() => {
                 {toast.message && <p className={messageDesc()}>{toast.message}</p>}
               </div>
             </div>
-            <button className={action()} type='button' onClick={() => { hideToast(toast.id) }}>
+            <button className={action()} type='button' onClick={() => { removeToast(toast.id) }}>
               <span className={actionLabel()} aria-hidden={true}>Close</span>
               <X className={actionIcon()} aria-hidden={true} weight='bold' />
             </button>

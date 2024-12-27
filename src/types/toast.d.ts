@@ -11,6 +11,6 @@ export interface Toast {
 
 export interface ToastContextProvider {
   toast: Toast[]
-  hideToast: (id: Toast['id']) => void
+  removeToast: (id: Toast['id']) => void
   addToast: (toast: Omit<Toast, 'id' | 'status'>) => void
 }

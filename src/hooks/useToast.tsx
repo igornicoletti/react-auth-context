@@ -9,7 +9,7 @@ export const useToast = () => {
     throw new Error('useToast must be used within a ToastProvider')
   }
 
-  const { toast, addToast, hideToast } = context
+  const { toast, addToast, removeToast } = context
 
   const toastMethod = (type: Toast['type']) =>
     (props: Omit<Toast, 'id' | 'status' | 'type'>) =>
@@ -17,7 +17,7 @@ export const useToast = () => {
 
   return {
     toast,
-    hideToast,
+    removeToast,
     success: toastMethod('success'),
     error: toastMethod('error'),
     info: toastMethod('info'),
