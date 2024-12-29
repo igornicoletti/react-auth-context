@@ -9,7 +9,7 @@ export interface Toast {
   status: boolean
 }
 
-export interface ToastContextProvider {
+export interface ToastContextProps {
   toast: Toast[]
   removeToast: (id: Toast['id']) => void
   addToast: (toast: Omit<Toast, 'id' | 'status'>) => void

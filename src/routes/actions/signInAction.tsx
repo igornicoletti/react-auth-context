@@ -2,22 +2,12 @@ import { ActionFunction } from 'react-router-dom'
 
 export const signInAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
+  const email = formData.get('email')?.toString() || ''
+  const password = formData.get('password')?.toString() || ''
 
-  const errors: Record<string, string> = {}
-
-  if (!email) {
-    errors.email = 'Email is required!'
+  if (!email || !password) {
+    return { error: 'All fields are required!' }
   }
 
-  if (!password) {
-    errors.password = 'Password is required!'
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { errors }
-  }
-
-  return { errors }
+  return { email, password }
 }

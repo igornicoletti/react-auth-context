@@ -1,7 +1,7 @@
 import { Switch } from '@headlessui/react'
 import { MoonStars, SunDim } from '@phosphor-icons/react'
-import { useTheme } from '../hooks'
 import { switchVariants } from '../styles'
+import { useTheme } from '../hooks'
 
 const { label, switcher, thumb, thumbIcon, thumbMoon, thumbSun } = switchVariants()
 

@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import './styles/tailwind.css'
 import { router } from './router'
-import { AppProviders } from './contexts'
+import { Providers } from './contexts'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppProviders>
+    <Providers>
       <RouterProvider router={router} />
-    </AppProviders>
+    </Providers>
   </StrictMode>,
 )

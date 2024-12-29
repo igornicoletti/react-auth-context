@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { CheckCircle, Info, Warning, X, XCircle } from '@phosphor-icons/react'
-import { useToast } from '../hooks'
 import { toastVariants } from '../styles'
+import { useToast } from '../hooks'
 import { Toast } from '../types'
 
 const { action, actionIcon, actionLabel, container, message, messageDesc, messageIcon, messageTitle, messageWrap } = toastVariants()
@@ -17,7 +17,7 @@ const getToastIcon = (type: Toast['type']) => {
   return icons[type]
 }
 
-export const ToastNotification = (() => {
+export const ToastNotification = () => {
   const { toast, removeToast } = useToast()
 
   return (
@@ -47,7 +47,7 @@ export const ToastNotification = (() => {
       ))}
     </>
   )
-})
+}
 
 {/*
 <XCircle className={messageIcon({ color: toast.type })} aria-hidden={true} weight='duotone' />

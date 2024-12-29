@@ -1,12 +1,11 @@
-import { createContext, ReactNode, useCallback, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Toast, ToastContextProvider } from '../types'
+import { Toast } from '../../types'
+import { ToastContext } from './ToastContext'
 
-const ToastContext = createContext<ToastContextProvider | undefined>(undefined)
-
-const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<Toast[]>([])
-  const [toastTimers, setToastTimers] = useState<Map<string, ReturnType<typeof setTimeout>>>(new Map())
+  const [timer, setTimer] = useState<Map<string, ReturnType<typeof setTimeout>>>(new Map())
 
   const removeToast = useCallback((id: Toast['id']) => {
     setToast((prevToast) =>
@@ -14,24 +13,24 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
         ? { ...toast, status: false }
         : toast))
 
-    if (toastTimers.has(id)) {
-      clearTimeout(toastTimers.get(id))
+    if (timer.has(id)) {
+      clearTimeout(timer.get(id))
 
-      setToastTimers((prevTimers) => {
+      setTimer((prevTimers) => {
         const newTimers = new Map(prevTimers)
         newTimers.delete(id)
         return newTimers
       })
     }
-  }, [toastTimers])
+  }, [timer])
 
   const addToast = useCallback((toast: Omit<Toast, 'id' | 'status'>) => {
     const id = uuidv4()
-    const newToast: Toast = { ...toast, id, status: true, duration: toast.duration || 4000 }
+    const newToast: Toast = { ...toast, id, status: true, duration: toast.duration || 5000 }
     const timeout = setTimeout(() => removeToast(id), newToast.duration)
 
     setToast((prevToast) => [...prevToast, newToast])
-    setToastTimers((prevTimers) => new Map(prevTimers).set(id, timeout))
+    setTimer((prevTimers) => new Map(prevTimers).set(id, timeout))
   }, [removeToast])
 
   return (
@@ -40,5 +39,3 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
     </ToastContext.Provider>
   )
 }
-
-export { ToastContext, ToastProvider }

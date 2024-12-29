@@ -1,15 +1,18 @@
 import { Outlet } from 'react-router-dom'
+import { appVariants } from './styles'
 import { ThemeSwitch, ToastNotification } from './components'
+
+const { container, theme, toast, toastWrapper } = appVariants()
 
 export const App = () => {
   return (
-    <div className={'relative w-full min-h-screen bg-dracula-light dark:bg-dracula-dark'}>
-      <div className='absolute top-6 right-6'>
+    <div className={container()}>
+      <div className={theme()}>
         <ThemeSwitch />
       </div>
       <Outlet />
-      <div aria-live="assertive" className="pointer-events-none fixed inset-0 flex items-end p-6 sm:items-start">
-        <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+      <div className={toast()} aria-live='assertive'>
+        <div className={toastWrapper()}>
           <ToastNotification />
         </div>
       </div>

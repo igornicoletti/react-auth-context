@@ -1,9 +1,8 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
-import { Theme, ThemeContextProps } from '../types'
+import { ReactNode, useEffect, useState } from 'react'
+import { Theme } from '../../types'
+import { ThemeContext } from './ThemeContext'
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined)
-
-const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     return (localStorage.getItem('theme') as Theme) || 'light'
   })
@@ -23,5 +22,3 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     </ThemeContext.Provider>
   )
 }
-
-export { ThemeContext, ThemeProvider }
