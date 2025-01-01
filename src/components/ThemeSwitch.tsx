@@ -1,5 +1,5 @@
 import { Switch } from '@headlessui/react'
-import { MoonStars, SunDim } from '@phosphor-icons/react'
+import { MoonStars, Sun } from '@phosphor-icons/react'
 import { switchVariants } from '../styles'
 import { useTheme } from '../hooks'
 
@@ -17,7 +17,7 @@ export const ThemeSwitch = () => {
       <span className={label()}>Theme mode</span>
       <span className={thumb()}>
         <span className={thumbSun()} aria-hidden={true}>
-          <SunDim className={thumbIcon()} aria-hidden={true} weight='duotone' />
+          <Sun className={thumbIcon()} aria-hidden={true} weight='duotone' />
         </span>
         <span className={thumbMoon()} aria-hidden={true}>
           <MoonStars className={thumbIcon()} aria-hidden={true} weight='duotone' />

@@ -1,29 +1,24 @@
-import { Form, Link, useActionData } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Check, Cow, GithubLogo, GoogleLogo } from '@phosphor-icons/react'
 import { authVariants, formVariants } from '../styles'
-import { FormField } from '../components/form/FormField'
+import { AuthForm } from '../components'
 
-const { account, accountLink, divide, divideLine, divideText, connect, connectIcon, connectButton, logo, title, container, wrapper } = authVariants()
-const { form, action, actionRemember, actionCheckbox, actionInput, actionIcon, actionForgot, submit } = formVariants()
-
-const fieldsData = [
-  { id: 'email', name: 'email', label: 'Email', type: 'text', isPwd: false, },
-  { id: 'password', name: 'password', label: 'Password', type: 'password', isPwd: true, },
-]
+const { account, accountLink, divide, divideLine, divideText, connect, connectIcon, connectButton, container, logo, title, wrapper } = authVariants()
+const { action, actionRemember, actionCheckbox, actionInput, actionIcon, actionForgot } = formVariants()
 
 export const SignIn = () => {
-  const data = useActionData()
-  console.log(data)
+
+  const fieldsData = [
+    { id: 'email', name: 'email', label: 'Email', type: 'text', isPwd: false, },
+    { id: 'password', name: 'password', label: 'Password', type: 'password', isPwd: true, },
+  ]
 
   return (
     <div className={container()}>
       <div className={wrapper()}>
         <Cow className={logo()} weight='duotone' aria-hidden={true} />
         <h2 className={title()}>Moo-ve into your account</h2>
-        <Form className={form()} method='post'>
-          {fieldsData.map((field) => (
-            <FormField key={field.id} {...field} />
-          ))}
+        <AuthForm fieldsData={fieldsData}>
           <div className={action()}>
             <div className={actionRemember()}>
               <div className={actionCheckbox()}>
@@ -34,8 +29,7 @@ export const SignIn = () => {
             </div>
             <Link className={actionForgot()} to='/'>Forgot password?</Link>
           </div>
-          <button className={submit()} type='submit' disabled={false}>Sign in</button>
-        </Form>
+        </AuthForm>
         <div className={divide()}>
           <div className={divideLine()}></div>
           <p className={divideText()}>Or continue with</p>
@@ -51,7 +45,7 @@ export const SignIn = () => {
           </button>
         </div>
         <p className={account()}>Don&apos;t have an account?{' '}
-          <Link className={accountLink()} to='/signup'>Sign up</Link>
+          <Link className={accountLink()} to='/sign-up'>Sign up</Link>
         </p>
       </div>
     </div>

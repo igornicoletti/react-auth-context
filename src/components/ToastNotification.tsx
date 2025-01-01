@@ -27,7 +27,7 @@ export const ToastNotification = () => {
           enter={'transition ease-out duration-300'}
           enterFrom={'transform translate-y-16 sm:translate-y-0 sm:translate-x-16'}
           enterTo={'transform translate-y-0 sm:translate-x-0'}
-          leave={'transition ease-in duration-200'}
+          leave={'transition ease-in duration-300'}
           leaveFrom={'transform translate-y-0 sm:translate-x-0'}
           leaveTo={'transform translate-y-16 sm:translate-y-0 sm:translate-x-16'}>
           <div className={container()}>

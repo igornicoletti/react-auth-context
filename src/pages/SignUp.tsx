@@ -1,9 +1,9 @@
 import { Form, Link, useActionData } from 'react-router-dom'
 import { Cow } from '@phosphor-icons/react'
 import { authVariants, formVariants } from '../styles'
-import { FormField } from '../components/form/FormField'
+import { InputField } from '../components'
 
-const { account, accountLink, logo, title, container, wrapper } = authVariants()
+const { account, accountLink, container, logo, title, wrapper } = authVariants()
 const { form, terms, termsLink, submit } = formVariants()
 
 const fieldsData = [
@@ -23,7 +23,7 @@ export const SignUp = () => {
         <h2 className={title()}>Sign up and join the herd</h2>
         <Form className={form()} method='post'>
           {fieldsData.map((field) => (
-            <FormField key={field.id} {...field} />
+            <InputField key={field.id} {...field} />
           ))}
           <p className={terms()}>By registering, you accept our{' '}
             <Link className={termsLink()} to={'/terms'}>terms of use</Link> and{' '}
@@ -32,7 +32,7 @@ export const SignUp = () => {
           <button className={submit()} type='submit'>Sign up</button>
         </Form>
         <p className={account()}>Already have an account?{' '}
-          <Link className={accountLink()} to={'/signin'}>Sign in</Link>
+          <Link className={accountLink()} to={'/sign-in'}>Sign in</Link>
         </p>
       </div>
     </div>
