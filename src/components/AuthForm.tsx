@@ -6,7 +6,7 @@ import { useToast } from '../hooks'
 import { Field } from '../types'
 import { validateForm } from '../utils'
 
-const { form, submit } = formVariants()
+const { form } = formVariants()
 
 export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; children: ReactNode }) => {
   const toast = useToast()
@@ -23,7 +23,6 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
     const { email, password } = formState
     const newErrors = validateForm(email, password)
 
@@ -42,17 +41,13 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
     <Form className={form()} onSubmit={handleSubmit}>
       {fieldsData.map((field) => (
         <InputField
-          key={field.id}
           {...field}
-          value={formState[field.name]}
+          key={field.id}
           onChange={handleInputChange}
-          errorMessage={errors[field.name]}
-        />
+          value={formState[field.name]}
+          errorMessage={errors[field.name]} />
       ))}
       {children}
-      <button className={submit()} type='submit' disabled={!formState.email || !formState.password}>
-        Sign in
-      </button>
     </Form>
   )
 }

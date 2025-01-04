@@ -4,10 +4,9 @@ import { authVariants, formVariants } from '../styles'
 import { AuthForm } from '../components'
 
 const { account, accountLink, divide, divideLine, divideText, connect, connectIcon, connectButton, container, logo, title, wrapper } = authVariants()
-const { action, actionRemember, actionCheckbox, actionInput, actionIcon, actionForgot } = formVariants()
+const { action, actionRemember, actionCheckbox, actionInput, actionIcon, actionForgot, submit } = formVariants()
 
 export const SignIn = () => {
-
   const fieldsData = [
     { id: 'email', name: 'email', label: 'Email', type: 'text', isPwd: false, },
     { id: 'password', name: 'password', label: 'Password', type: 'password', isPwd: true, },
@@ -29,6 +28,7 @@ export const SignIn = () => {
             </div>
             <Link className={actionForgot()} to='/'>Forgot password?</Link>
           </div>
+          <button className={submit()}>Sign in</button>
         </AuthForm>
         <div className={divide()}>
           <div className={divideLine()}></div>

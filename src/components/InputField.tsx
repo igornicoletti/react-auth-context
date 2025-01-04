@@ -3,7 +3,7 @@ import { Eye, EyeSlash } from '@phosphor-icons/react'
 import { formVariants } from '../styles'
 import { Field } from '../types'
 
-const { field, fieldInput, fieldPassword, fieldIcon } = formVariants()
+const { field, fieldError, fieldIcon, fieldInput, fieldPassword } = formVariants()
 
 export const InputField = ({ id, isPwd, label, name, type, value, errorMessage, onChange }: Field) => {
   const [showPwd, setShowPwd] = useState<boolean>(false)
@@ -17,15 +17,13 @@ export const InputField = ({ id, isPwd, label, name, type, value, errorMessage, 
         name={name}
         value={value}
         onChange={onChange}
+        aria-invalid={!!errorMessage}
         type={isPwd && showPwd ? 'text' : type}
-        className={fieldInput()} />
-      {errorMessage && (
-        <p id={`${id}-error`} className='text-right text-xs text-dracula-red'>
-          {errorMessage}
-        </p>
-      )}
+        aria-describedby={errorMessage ? `${id}-error` : undefined}
+        className={fieldInput({ color: errorMessage ? 'error' : undefined })} />
+      {errorMessage && <p id={`${id}-error`} className={fieldError()}>{errorMessage}</p>}
       {isPwd && (
-        <button className={fieldPassword()} onClick={handleTogglePwd} type='button' aria-label={!showPwd ? 'Show password' : 'Hide password'}>
+        <button className={fieldPassword()} onClick={handleTogglePwd} aria-label={!showPwd ? 'Show password' : 'Hide password'} type='button'>
           {!showPwd
             ? <Eye className={fieldIcon()} weight='duotone' aria-hidden={true} />
             : <EyeSlash className={fieldIcon()} weight='duotone' aria-hidden={true} />}
