@@ -25,8 +25,8 @@ export const InputField = ({ id, isPwd, label, name, type, value, errorMessage, 
       {isPwd && (
         <button className={fieldPassword()} onClick={handleTogglePwd} aria-label={!showPwd ? 'Show password' : 'Hide password'} type='button'>
           {!showPwd
-            ? <Eye className={fieldIcon()} weight='duotone' aria-hidden={true} />
-            : <EyeSlash className={fieldIcon()} weight='duotone' aria-hidden={true} />}
+            ? <Eye className={fieldIcon()} aria-hidden={true} weight='duotone' />
+            : <EyeSlash className={fieldIcon()} aria-hidden={true} weight='duotone' />}
         </button>
       )}
     </div>

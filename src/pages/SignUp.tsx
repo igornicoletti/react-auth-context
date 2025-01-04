@@ -16,7 +16,7 @@ export const SignUp = () => {
   return (
     <div className={container()}>
       <div className={wrapper()}>
-        <Cow className={logo()} weight='duotone' aria-hidden={true} />
+        <Cow className={logo()} aria-hidden={true} weight='duotone' />
         <h2 className={title()}>Sign up and join the herd</h2>
         <AuthForm fieldsData={fieldsData}>
           <p className={terms()}>By registering, you accept our{' '}

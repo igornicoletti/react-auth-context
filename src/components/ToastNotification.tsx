@@ -1,10 +1,11 @@
 import { Transition } from '@headlessui/react'
 import { CheckCircle, Info, Warning, X, XCircle } from '@phosphor-icons/react'
-import { toastVariants } from '../styles'
+import { toastVariants, toastTransitionVariants } from '../styles'
 import { useToast } from '../hooks'
 import { Toast } from '../types'
 
 const { action, actionIcon, actionLabel, container, message, messageDesc, messageIcon, messageTitle, messageWrap } = toastVariants()
+const { enter, enterFrom, enterTo, leave, leaveFrom, leaveTo } = toastTransitionVariants()
 
 const getToastIcon = (type: Toast['type']) => {
   const icons = {
@@ -23,13 +24,7 @@ export const ToastNotification = () => {
   return (
     <>
       {toast.map((toast) => (
-        <Transition key={toast.id} show={toast.status}
-          enter={'transition ease-out duration-300'}
-          enterFrom={'transform translate-y-16 sm:translate-y-0 sm:translate-x-16'}
-          enterTo={'transform translate-y-0 sm:translate-x-0'}
-          leave={'transition ease-in duration-300'}
-          leaveFrom={'transform translate-y-0 sm:translate-x-0'}
-          leaveTo={'transform translate-y-16 sm:translate-y-0 sm:translate-x-16'}>
+        <Transition key={toast.id} show={toast.status} enter={enter()} enterFrom={enterFrom()} enterTo={enterTo()} leave={leave()} leaveFrom={leaveFrom()} leaveTo={leaveTo()}>
           <div className={container()}>
             <div className={message()}>
               {getToastIcon(toast.type)}
@@ -38,7 +33,7 @@ export const ToastNotification = () => {
                 {toast.message && <p className={messageDesc()}>{toast.message}</p>}
               </div>
             </div>
-            <button className={action()} type='button' onClick={() => { removeToast(toast.id) }}>
+            <button className={action()} onClick={() => removeToast(toast.id)} type='button'>
               <span className={actionLabel()} aria-hidden={true}>Close</span>
               <X className={actionIcon()} aria-hidden={true} weight='bold' />
             </button>

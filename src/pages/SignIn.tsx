@@ -15,20 +15,20 @@ export const SignIn = () => {
   return (
     <div className={container()}>
       <div className={wrapper()}>
-        <Cow className={logo()} weight='duotone' aria-hidden={true} />
+        <Cow className={logo()} aria-hidden={true} weight='duotone' />
         <h2 className={title()}>Moo-ve into your account</h2>
         <AuthForm fieldsData={fieldsData}>
           <div className={action()}>
             <div className={actionRemember()}>
               <div className={actionCheckbox()}>
                 <input className={actionInput()} id='remember-me' name='remember-me' type='checkbox' aria-checked={false} />
-                <Check className={actionIcon()} weight='bold' aria-hidden={true} />
+                <Check className={actionIcon()} aria-hidden={true} weight='duotone' />
               </div>
               <label htmlFor='remember-me'>Remember me</label>
             </div>
             <Link className={actionForgot()} to='/'>Forgot password?</Link>
           </div>
-          <button className={submit()}>Sign in</button>
+          <button className={submit()} type='submit'>Sign in</button>
         </AuthForm>
         <div className={divide()}>
           <div className={divideLine()}></div>
@@ -36,11 +36,11 @@ export const SignIn = () => {
         </div>
         <div className={connect()}>
           <button className={connectButton()} type='button'>
-            <GoogleLogo className={connectIcon()} weight='duotone' aria-hidden={true} />
+            <GoogleLogo className={connectIcon()} aria-hidden={true} weight='duotone' />
             <span>Google</span>
           </button>
           <button className={connectButton()} type='button'>
-            <GithubLogo className={connectIcon()} weight='duotone' aria-hidden={true} />
+            <GithubLogo className={connectIcon()} aria-hidden={true} weight='duotone' />
             <span>GitHub</span>
           </button>
         </div>

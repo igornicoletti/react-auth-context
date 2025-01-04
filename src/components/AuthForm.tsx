@@ -10,10 +10,8 @@ const { form } = formVariants()
 
 export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; children: ReactNode }) => {
   const toast = useToast()
-  const [formState, setFormState] = useState<{ [key: string]: string }>({
-    email: '',
-    password: '',
-  })
+  const initialState = fieldsData.reduce((acc, field) => ({ ...acc, [field.name]: '' }), {})
+  const [formState, setFormState] = useState<{ [key: string]: string }>(initialState)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,17 +21,20 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const { email, password } = formState
-    const newErrors = validateForm(email, password)
+    const newErrors = validateForm(fieldsData, formState)
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
+      toast.error({
+        title: 'Validation Error',
+        message: 'Please fix the errors in the form.',
+      })
       return
     }
 
     toast.success({
-      title: 'Successfully!',
-      message: `Welcome, ${email}.`
+      title: 'Successfully Submitted!',
+      message: `Welcome, ${formState.email}.`,
     })
   }
 
