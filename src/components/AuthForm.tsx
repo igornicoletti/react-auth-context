@@ -3,7 +3,7 @@ import { Form } from 'react-router-dom'
 import { formVariants } from '../styles'
 import { InputField } from './InputField'
 import { useToast } from '../hooks'
-import { Field } from '../types'
+import { Field, ValidationError } from '../types'
 import { validateForm } from '../utils'
 
 const { form } = formVariants()
@@ -16,15 +16,20 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormState((prev) => ({ ...prev, [name]: value }))
+    setFormState({ ...formState, [name]: value })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const newErrors = validateForm(fieldsData, formState)
+    const newErrors: ValidationError[] = validateForm(fieldsData, formState)
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
+    const errorMap: { [key: string]: string } = {}
+    newErrors.forEach((error) => {
+      errorMap[error.field] = error.message
+    })
+
+    if (newErrors.length > 0) {
+      setErrors(errorMap)
       toast.error({
         title: 'Validation Error',
         message: 'Please fix the errors in the form.',
@@ -52,3 +57,15 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
     </Form>
   )
 }
+
+/*
+const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target
+  setFormState((prev) => ({ ...prev, [name]: value }))
+}, [])
+
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target
+  setFormState({ ...formState, [name]: value })
+}
+ */

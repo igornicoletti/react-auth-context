@@ -10,9 +10,11 @@ export const useToast = () => {
 
   const { toast, addToast, removeToast } = context
 
-  const toastMethod = (type: Toast['type']) =>
-    (props: Omit<Toast, 'id' | 'status' | 'type'>) =>
-      addToast({ ...props, type })
+  const toastMethod = (type: Toast['type']) => {
+    return (props: Omit<Toast, 'id' | 'status' | 'type'>) => {
+      return addToast({ ...props, type })
+    }
+  }
 
   return {
     toast,

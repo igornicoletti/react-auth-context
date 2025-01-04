@@ -1,36 +1,60 @@
-import { Field } from '../types'
+import { Field, ValidationError } from '../types'
+
+const errorMessages = {
+  required: (field: string) => `${field} is required.`,
+  invalidEmail: 'Please provide a valid email address.',
+  shortPassword: 'Password must be at least 6 characters long.',
+}
+
+export const isRequired = (label: string, value: string): string | null => {
+  return value ? null : errorMessages.required(label)
+}
 
 export const validateEmail = (email: string): string | null => {
-  if (!/\S+@\S+\.\S+/.test(email)) return 'Please provide a valid email address.'
-  return null
+  return /\S+@\S+\.\S+/.test(email) ? null : errorMessages.invalidEmail
 }
 
 export const validatePassword = (password: string): string | null => {
-  if (password.length < 6) return 'Password must be at least 6 characters long.'
-  return null
+  return password.length >= 6 ? null : errorMessages.shortPassword
 }
 
-export const validateField = (field: Field, value: string): string | null => {
-  if (!value) return `${field.label} is required.`
+export const validateField = (field: Field, value: string): ValidationError | null => {
+  if (field.validate) {
+    const customError = field.validate(value)
+    if (customError) {
+      return { field: field.name, message: customError }
+    }
+  }
+
+  const requiredError = isRequired(field.label, value)
+  if (requiredError) {
+    return { field: field.name, message: requiredError }
+  }
 
   switch (field.name) {
-    case 'email':
-      return validateEmail(value)
-    case 'password':
-      return validatePassword(value)
+    case 'email': {
+      const emailError = validateEmail(value)
+      if (emailError) return { field: field.name, message: emailError }
+      break
+    }
+    case 'password': {
+      const passwordError = validatePassword(value)
+      if (passwordError) return { field: field.name, message: passwordError }
+      break
+    }
     default:
       return null
   }
+
+  return null
 }
 
-export const validateForm = (fieldsData: Field[], formState: { [key: string]: string }): { [key: string]: string } => {
-  const errors: { [key: string]: string } = {}
+export const validateForm = (fieldsData: Field[], formState: { [key: string]: string }): ValidationError[] => {
+  const errors: ValidationError[] = []
 
   fieldsData.forEach((field) => {
     const error = validateField(field, formState[field.name])
-    if (error) {
-      errors[field.name] = error
-    }
+    if (error) errors.push(error)
   })
 
   return errors

@@ -1,10 +1,14 @@
-export interface Field {
+interface FieldBase {
   id: string
   name: string
   label: string
-  value?: string
   type: string
-  isPwd: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  value?: string
   errorMessage?: string
+}
+
+export interface Field extends FieldBase {
+  isPwd?: boolean
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  validate?: (value: string) => string | null
 }

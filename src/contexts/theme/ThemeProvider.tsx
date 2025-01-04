@@ -4,7 +4,9 @@ import { ThemeContext } from './ThemeContext'
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    return (localStorage.getItem('theme') as Theme) || 'light'
+    return ((localStorage.getItem('theme') as Theme) ||
+      (window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
   })
 
   useEffect(() => {
@@ -13,8 +15,20 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme])
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+    setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light')
   }
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      setTheme(event.matches ? 'dark' : 'light')
+    }
+
+    mediaQuery.addEventListener('change', handleChange)
+
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -30,7 +30,6 @@ export const toastVariants = tv({
   }
 })
 
-
 export const toastTransitionVariants = tv({
   slots: {
     enter: 'transition ease-out duration-300',

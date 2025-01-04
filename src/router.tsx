@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { App } from './App'
 import { SignIn, SignUp } from './pages'
-import { signInAction, signUpAction } from './routes/actions'
+import { signInAction, signUpAction } from './routes'
 
 export const router = createBrowserRouter([
   {

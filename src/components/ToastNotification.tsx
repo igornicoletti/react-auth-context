@@ -9,10 +9,10 @@ const { enter, enterFrom, enterTo, leave, leaveFrom, leaveTo } = toastTransition
 
 const getToastIcon = (type: Toast['type']) => {
   const icons = {
-    success: <CheckCircle className={messageIcon({ color: type })} aria-hidden={true} weight='duotone' />,
-    error: <XCircle className={messageIcon({ color: type })} aria-hidden={true} weight='duotone' />,
-    info: <Info className={messageIcon({ color: type })} aria-hidden={true} weight='duotone' />,
-    warning: <Warning className={messageIcon({ color: type })} aria-hidden={true} weight='duotone' />,
+    success: <CheckCircle className={messageIcon({ color: type })} aria-hidden={true} weight="duotone" />,
+    error: <XCircle className={messageIcon({ color: type })} aria-hidden={true} weight="duotone" />,
+    info: <Info className={messageIcon({ color: type })} aria-hidden={true} weight="duotone" />,
+    warning: <Warning className={messageIcon({ color: type })} aria-hidden={true} weight="duotone" />,
   }
 
   return icons[type]
@@ -24,7 +24,17 @@ export const ToastNotification = () => {
   return (
     <>
       {toast.map((toast) => (
-        <Transition key={toast.id} show={toast.status} enter={enter()} enterFrom={enterFrom()} enterTo={enterTo()} leave={leave()} leaveFrom={leaveFrom()} leaveTo={leaveTo()}>
+        <Transition
+          key={toast.id}
+          show={toast.status}
+          enter={enter()}
+          enterFrom={enterFrom()}
+          enterTo={enterTo()}
+          leave={leave()}
+          leaveFrom={leaveFrom()}
+          leaveTo={leaveTo()}
+          afterLeave={() => removeToast(toast.id)}
+        >
           <div className={container()}>
             <div className={message()}>
               {getToastIcon(toast.type)}
@@ -33,9 +43,9 @@ export const ToastNotification = () => {
                 {toast.message && <p className={messageDesc()}>{toast.message}</p>}
               </div>
             </div>
-            <button className={action()} onClick={() => removeToast(toast.id)} type='button'>
+            <button className={action()} onClick={() => removeToast(toast.id)} type="button">
               <span className={actionLabel()} aria-hidden={true}>Close</span>
-              <X className={actionIcon()} aria-hidden={true} weight='bold' />
+              <X className={actionIcon()} aria-hidden={true} weight="bold" />
             </button>
           </div>
         </Transition>
@@ -43,9 +53,3 @@ export const ToastNotification = () => {
     </>
   )
 }
-
-{/*
-<XCircle className={messageIcon({ color: toast.type })} aria-hidden={true} weight='duotone' />
-<Info className={messageIcon({ color: toast.type })} aria-hidden={true} weight='duotone' />
-<Warning className={messageIcon({ color: toast.type })} aria-hidden={true} weight='duotone' />
-*/}
