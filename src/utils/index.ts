@@ -1,1 +1,2 @@
-export * from './validations'
+export { errorMessages } from './messages'
+export { validateForm } from './validations'

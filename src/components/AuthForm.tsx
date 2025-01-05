@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react'
 import { Form } from 'react-router-dom'
 import { formVariants } from '../styles'
-import { InputField } from './InputField'
+import { InputField } from './'
 import { useToast } from '../hooks'
 import { Field, ValidationError } from '../types'
 import { validateForm } from '../utils'

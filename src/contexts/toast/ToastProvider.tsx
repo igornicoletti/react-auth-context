@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Toast } from '../../types'
-import { ToastContext } from './ToastContext'
+import { ToastContext } from './'
 
 const DEFAULT_DURATION = 5000
 
