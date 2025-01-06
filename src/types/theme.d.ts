@@ -1,20 +1,16 @@
 /**
- * Represents the context value for theme-related data.
- * Representa o valor do contexto para dados relacionados ao tema.
- *
- * - `theme`: Current theme ('light' or 'dark').
- * - `toggleTheme`: Function to toggle between themes.
- */
-export interface ThemeContextProps {
-  theme: 'light' | 'dark'
-  toggleTheme: () => void
-}
-
-/**
- * Defines possible theme values.
- * Define os valores possíveis para o tema.
- *
- * - `light`: Light theme.
- * - `dark`: Dark theme.
+ * Represents the available themes for the application.
+ * Can be either 'light' or 'dark'.
  */
 export type Theme = 'light' | 'dark'
+
+/**
+ * Defines the structure of the theme context properties.
+ * Provides the current theme and a function to toggle between themes.
+ * @property theme - The current theme of the application ('light' or 'dark').
+ * @property toggleTheme - A function to switch between the 'light' and 'dark' themes.
+ */
+export interface ThemeContextProps {
+  theme: Theme
+  toggleTheme: () => void
+}

@@ -1,27 +1,19 @@
 import { useContext } from 'react'
-import { Toast } from '../types'
+import { ToastContextProps } from '../types'
 import { ToastContext } from '../contexts'
 
-export const useToast = () => {
+/**
+ * Custom hook to access the Toast context and its methods.
+ * - Throws an error if used outside of a `ToastProvider`.
+ * @returns {ToastContextProps} The current toast context containing methods for adding, removing, and managing toasts.
+ * @throws Will throw an error if the hook is used outside of a `ToastProvider`.
+ */
+export const useToast = (): ToastContextProps => {
   const context = useContext(ToastContext)
+
   if (!context) {
     throw new Error('useToast must be used within a ToastProvider')
   }
 
-  const { toast, addToast, removeToast } = context
-
-  const toastMethod = (type: Toast['type']) => {
-    return (props: Omit<Toast, 'id' | 'status' | 'type'>) => {
-      return addToast({ ...props, type })
-    }
-  }
-
-  return {
-    toast,
-    removeToast,
-    success: toastMethod('success'),
-    error: toastMethod('error'),
-    info: toastMethod('info'),
-    warning: toastMethod('warning'),
-  }
+  return context
 }

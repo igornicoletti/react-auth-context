@@ -33,6 +33,7 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
       toast.error({
         title: 'Validation Error',
         message: 'Please fix the errors in the form.',
+        duration: 10000
       })
       return
     }
@@ -40,6 +41,7 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
     toast.success({
       title: 'Successfully Submitted!',
       message: `Welcome, ${formState.email}.`,
+      duration: 10000
     })
   }
 

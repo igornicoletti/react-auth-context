@@ -43,7 +43,7 @@ export const ToastNotification = () => {
                 {toast.message && <p className={messageDesc()}>{toast.message}</p>}
               </div>
             </div>
-            <button className={action()} onClick={() => removeToast(toast.id)} type="button">
+            <button className={action()} onClick={() => removeToast(toast.id)} type='button' aria-label='Close toast'>
               <span className={actionLabel()} aria-hidden={true}>Close</span>
               <X className={actionIcon()} aria-hidden={true} weight="bold" />
             </button>

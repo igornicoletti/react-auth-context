@@ -1,13 +1,12 @@
 /**
- * Represents the basic structure of a field in a form.
- * Representa a estrutura básica de um campo em um formulário.
- *
- * - `id`: Unique identifier for the field.
- * - `name`: The name of the field.
- * - `label`: The label of the field, used for display in the UI and error messages.
- * - `type`: The input type, such as "text", "email", "password".
- * - `value`: The current value of the field (optional).
- * - `errorMessage`: The error message associated with the field (optional).
+ * Represents the base structure of a form field.
+ * Contains common properties used across different types of fields.
+ * @property id - A unique identifier for the field.
+ * @property name - The name attribute for the field, used in form submissions.
+ * @property label - The display label for the field.
+ * @property type - The input type of the field (e.g., "text", "email", "password").
+ * @property value - (Optional) The current value of the field.
+ * @property errorMessage - (Optional) The error message displayed if validation fails.
  */
 export interface FieldBase {
   id: string
@@ -19,12 +18,12 @@ export interface FieldBase {
 }
 
 /**
- * Extends FieldBase with additional properties for managing field-specific behavior.
- * Estende FieldBase com propriedades adicionais para gerenciar comportamentos específicos do campo.
- *
- * - `isPwd`: Indicates if the field is a password field (optional).
- * - `onChange`: The event handler for handling changes in the input field (optional).
- * - `validate`: A custom validation function that returns an error message or null (optional).
+ * Extends the base field structure with additional properties for specific functionality.
+ * Adds features for password fields, change handling, and validation.
+ * @property isPwd - (Optional) Indicates if the field is a password field.
+ * @property onChange - (Optional) Function to handle changes to the field's value.
+ * @property validate - (Optional) Function to validate the field's value.
+ *                      Returns an error message as a string if validation fails, or `null` if valid.
  */
 export interface Field extends FieldBase {
   isPwd?: boolean

@@ -7,7 +7,7 @@ export const toastVariants = tv({
     messageIcon: 'shrink-0 size-5 text-dracula-green',
     messageWrap: 'grid gap-1',
     messageTitle: 'font-semibold sm:text-sm text-dracula-light',
-    messageDesc: 'text-sm text-dracula-light/75',
+    messageDesc: 'text-sm text-dracula-light',
     action: 'group absolute top-0 right-0 p-2.5 focus:outline-none',
     actionLabel: 'sr-only',
     actionIcon: 'size-4 text-dracula-blue group-hover:text-dracula-light',
@@ -32,10 +32,10 @@ export const toastVariants = tv({
 
 export const toastTransitionVariants = tv({
   slots: {
-    enter: 'transition ease-out duration-300',
+    enter: 'transition-opacity duration-300 ease-in',
     enterFrom: 'transform translate-y-16 sm:translate-y-0 sm:translate-x-16',
     enterTo: 'transform translate-y-0 sm:translate-x-0',
-    leave: 'transition ease-in duration-300',
+    leave: 'transition-opacity duration-300 ease-out',
     leaveFrom: 'transform translate-y-0 sm:translate-x-0',
     leaveTo: 'transform translate-y-16 sm:translate-y-0 sm:translate-x-16',
   }

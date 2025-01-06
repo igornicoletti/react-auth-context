@@ -1,10 +1,19 @@
 import { ReactNode, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Toast } from '../../types'
+import { Toast, ToastProps } from '../../types'
 import { ToastContext } from './'
 
 const DEFAULT_DURATION = 5000
 
+/**
+ * Provides the Toast context to the rest of the application.
+ * This provider manages the state of toasts and handles their lifecycle (adding, removing, and timing out).
+ * - Stores and displays toast notifications.
+ * - Automatically removes toasts after a specified duration.
+ * - Provides methods to trigger different types of toasts (`success`, `error`, `info`, `warning`).
+ * @param children The components to be wrapped by the `ToastProvider`.
+ * @returns The `ToastProvider` component which provides the toast context to its children.
+ */
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<Toast[]>([])
   const [timer, setTimer] = useState<Map<string, ReturnType<typeof setTimeout>>>(new Map())
@@ -24,6 +33,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         newTimers.delete(id)
         return newTimers
       })
+
     }
 
     setTimeout(() => {
@@ -40,8 +50,20 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     setTimer((prevTimers) => new Map(prevTimers).set(id, timeout))
   }, [removeToast])
 
+
+  const toastMethod = (type: Toast['type']) => {
+    return (props: ToastProps) => {
+      return addToast({ ...props, type })
+    }
+  }
+
+  const success = toastMethod('success')
+  const error = toastMethod('error')
+  const info = toastMethod('info')
+  const warning = toastMethod('warning')
+
   return (
-    <ToastContext.Provider value={{ addToast, removeToast, toast }}>
+    <ToastContext.Provider value={{ toast, addToast, removeToast, success, error, info, warning }}>
       {children}
     </ToastContext.Provider>
   )

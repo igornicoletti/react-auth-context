@@ -3,10 +3,9 @@ import { Theme } from '../../types'
 import { ThemeContext } from './'
 
 /**
- * Retrieves the initial theme value (from localStorage or system preference).
- * Retorna o valor inicial do tema (do localStorage ou preferência do sistema).
- *
- * @returns The initial theme value, either 'light', 'dark', or 'light' by default.
+ * Retrieves the initial theme, prioritizing the saved theme in localStorage, then the system preference,
+ * and defaults to 'light' if none are available.
+ * @returns {Theme} The initial theme ('light' or 'dark').
  */
 const getInitialTheme = (): Theme => {
   const savedTheme = localStorage.getItem('theme') as Theme | null
@@ -15,11 +14,11 @@ const getInitialTheme = (): Theme => {
 }
 
 /**
- * Provides theme context for the application.
- * Fornece o contexto do tema para a aplicação.
- *
- * - `theme`: Current theme ('light' or 'dark').
- * - `toggleTheme`: Function to toggle between light and dark themes.
+ * Provides the theme context to the component tree.
+ * The `ThemeProvider` manages the current theme state and allows it to be toggled.
+ * It saves the theme in `localStorage` and listens for system theme changes.
+ * @param {ReactNode} children The child components that will consume the theme context.
+ * @returns {JSX.Element} The `ThemeContext.Provider` with the current theme and `toggleTheme` function.
  */
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
