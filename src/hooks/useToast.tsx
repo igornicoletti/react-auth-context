@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { ToastContextProps } from '../types'
 import { ToastContext } from '../contexts'
+import { ToastContextProps } from '../types'
 
 /**
  * Custom hook to access the Toast context and its methods.

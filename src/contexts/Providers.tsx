@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { ToastProvider } from './toast'
 import { ThemeProvider } from './theme'
+import { ToastProvider } from './toast'
 
 export const Providers = ({ children }: { children: ReactNode }) => {
   return (

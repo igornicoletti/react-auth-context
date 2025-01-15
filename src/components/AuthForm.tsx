@@ -1,52 +1,51 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 import { Form } from 'react-router-dom'
-import { formVariants } from '../styles'
-import { InputField } from './'
 import { useToast } from '../hooks'
+import { formVariants } from '../styles'
 import { Field, ValidationError } from '../types'
 import { validateForm } from '../utils'
-
-const { form } = formVariants()
+import { InputField } from './'
 
 export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; children: ReactNode }) => {
+  const authFormStyles = formVariants()
+
   const toast = useToast()
-  const initialState = fieldsData.reduce((acc, field) => ({ ...acc, [field.name]: '' }), {})
-  const [formState, setFormState] = useState<{ [key: string]: string }>(initialState)
-  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+  const initialState = useMemo(() =>
+    fieldsData.reduce((acc, field) =>
+      ({ ...acc, [field.name]: '' }), {}), [fieldsData])
+
+  const [formState, setFormState] = useState<Record<string, string>>(initialState)
+
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormState({ ...formState, [name]: value })
+    setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const newErrors: ValidationError[] = validateForm(fieldsData, formState)
 
-    const errorMap: { [key: string]: string } = {}
-    newErrors.forEach((error) => {
-      errorMap[error.field] = error.message
-    })
-
     if (newErrors.length > 0) {
+      const errorMap = Object.fromEntries(newErrors.map((error) => [error.field, error.message]))
       setErrors(errorMap)
       toast.error({
-        title: 'Validation Error',
-        message: 'Please fix the errors in the form.',
-        duration: 10000
+        title: 'Oops...',
+        message: `Please check the following fields: ${newErrors.map((err) => err.field).join(', ')}.`,
       })
       return
     }
 
     toast.success({
-      title: 'Successfully Submitted!',
-      message: `Welcome, ${formState.email}.`,
-      duration: 10000
+      title: 'Moooo...',
+      message: `Welcome back, ${formState.email}`,
     })
   }
 
   return (
-    <Form className={form()} onSubmit={handleSubmit}>
+    <Form className={authFormStyles.form()} onSubmit={handleSubmit}>
       {fieldsData.map((field) => (
         <InputField
           {...field}
@@ -59,15 +58,3 @@ export const AuthForm = ({ fieldsData, children }: { fieldsData: Field[]; childr
     </Form>
   )
 }
-
-/*
-const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target
-  setFormState((prev) => ({ ...prev, [name]: value }))
-}, [])
-
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target
-  setFormState({ ...formState, [name]: value })
-}
- */

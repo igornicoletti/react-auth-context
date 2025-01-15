@@ -1,37 +1,32 @@
 import { Switch } from '@headlessui/react'
 import { MoonStars, Sun } from '@phosphor-icons/react'
-import { switchVariants } from '../styles'
 import { useTheme } from '../hooks'
-import { useMemo } from 'react'
+import { switchVariants } from '../styles'
 
 /**
- * Switch component for toggling between light and dark theme.
- * Componente de switch para alternar entre os temas claro e escuro.
- *
- * - `theme`: The current theme ('light' or 'dark').
- * - `toggleTheme`: Function to toggle between themes.
+ * A toggle switch component for switching between light and dark themes.
+ * - Utilizes the `useTheme` hook to access the current theme and toggle function.
+ * - Uses Tailwind Variants for consistent styling and theming.
+ * @returns A styled switch component that toggles the theme when interacted with.
+ * @component
  */
 export const ThemeSwitch = () => {
+  const themeSwitchStyles = switchVariants()
   const { theme, toggleTheme } = useTheme()
-  const enabled = theme === 'dark'
-
-  // Memorizes the variants object to avoid recalculating on every render
-  // Memoriza o objeto de variantes para evitar recálculo a cada renderização
-  const variants = useMemo(() => switchVariants(), [])
 
   return (
     <Switch
-      checked={enabled}
       onChange={toggleTheme}
-      className={variants.switcher()}
+      checked={theme === 'dark'}
+      className={themeSwitchStyles.switch()}
       aria-label="Toggle theme between light and dark mode">
-      <span className={variants.label()}>Theme mode</span>
-      <span className={variants.thumb()}>
-        <span className={variants.thumbSun()} aria-hidden={true}>
-          <Sun className={variants.thumbIcon()} aria-hidden={true} weight='duotone' />
+      <span className={themeSwitchStyles.label()}>Theme mode</span>
+      <span className={themeSwitchStyles.thumb()}>
+        <span className={themeSwitchStyles.iconSun()} aria-hidden={true}>
+          <Sun className={themeSwitchStyles.icon()} aria-hidden={true} weight='duotone' />
         </span>
-        <span className={variants.thumbMoon()} aria-hidden={true}>
-          <MoonStars className={variants.thumbIcon()} aria-hidden={true} weight='duotone' />
+        <span className={themeSwitchStyles.iconMoon()} aria-hidden={true}>
+          <MoonStars className={themeSwitchStyles.icon()} aria-hidden={true} weight='duotone' />
         </span>
       </span>
     </Switch>

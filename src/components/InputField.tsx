@@ -1,16 +1,23 @@
-import { useState } from 'react'
 import { Eye, EyeSlash } from '@phosphor-icons/react'
+import { useState } from 'react'
 import { formVariants } from '../styles'
 import { Field } from '../types'
 
-const { field, fieldError, fieldIcon, fieldInput, fieldPassword } = formVariants()
-
 export const InputField = ({ id, isPwd, label, name, type, value, errorMessage, onChange }: Field) => {
+  const inputFieldStyles = formVariants()
   const [showPwd, setShowPwd] = useState<boolean>(false)
-  const handleTogglePwd = () => setShowPwd((prev) => !prev)
+
+  const handleTogglePwd = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setShowPwd((prev) => !prev)
+  }
+
+  const passwordIcon = showPwd
+    ? <EyeSlash className={inputFieldStyles.fieldIcon()} aria-hidden={true} weight='duotone' />
+    : <Eye className={inputFieldStyles.fieldIcon()} aria-hidden={true} weight='duotone' />
 
   return (
-    <div className={field()}>
+    <div className={inputFieldStyles.field()}>
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
@@ -20,13 +27,16 @@ export const InputField = ({ id, isPwd, label, name, type, value, errorMessage, 
         aria-invalid={!!errorMessage}
         type={isPwd && showPwd ? 'text' : type}
         aria-describedby={errorMessage ? `${id}-error` : undefined}
-        className={fieldInput({ color: errorMessage ? 'error' : undefined })} />
-      {errorMessage && <p id={`${id}-error`} className={fieldError()}>{errorMessage}</p>}
+        aria-errormessage={errorMessage ? `${id}-error` : undefined}
+        className={inputFieldStyles.fieldInput({ color: errorMessage ? 'error' : undefined })} />
+      {errorMessage && <p id={`${id}-error`} className={inputFieldStyles.fieldError()}>{errorMessage}</p>}
       {isPwd && (
-        <button className={fieldPassword()} onClick={handleTogglePwd} aria-label={!showPwd ? 'Show password' : 'Hide password'} type='button'>
-          {!showPwd
-            ? <Eye className={fieldIcon()} aria-hidden={true} weight='duotone' />
-            : <EyeSlash className={fieldIcon()} aria-hidden={true} weight='duotone' />}
+        <button
+          type='button'
+          onClick={handleTogglePwd}
+          className={inputFieldStyles.fieldPassword()}
+          aria-label={!showPwd ? 'Show password' : 'Hide password'}>
+          {passwordIcon}
         </button>
       )}
     </div>

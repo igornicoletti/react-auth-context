@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import { appVariants } from './styles'
 import { ThemeSwitch, ToastNotification } from './components'
+import { appVariants } from './styles'
 
 const { container, theme, toast, toastWrapper } = appVariants()
 

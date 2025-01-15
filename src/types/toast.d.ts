@@ -24,7 +24,6 @@ export interface Toast {
 
 /**
  * Represents the properties required to create a toast, excluding certain internal fields.
- * @see Toast
  * Omits the 'id', 'status', and 'type' properties from the Toast interface.
  */
 export type ToastProps = Omit<Toast, 'id' | 'status' | 'type'>
@@ -40,7 +39,7 @@ export type ToastProps = Omit<Toast, 'id' | 'status' | 'type'>
  * @property warning - Function to add a warning-type toast. Requires ToastProps.
  */
 export interface ToastContextProps {
-  toast: Toast[]
+  toasts: Toast[]
   addToast: (toast: Omit<Toast, 'id' | 'status'>) => void
   removeToast: (id: Toast['id']) => void
   success: (toast: ToastProps) => void

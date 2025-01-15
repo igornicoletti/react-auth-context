@@ -1,14 +1,18 @@
 import { ActionFunction } from 'react-router-dom'
+import { validateSignUp } from '../../utils'
 
 export const signUpAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const fullName = formData.get('fullName') as string
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
+  const fullName = formData.get('fullName')?.toString().trim() || ''
+  const email = formData.get('email')?.toString().trim() || ''
+  const password = formData.get('password')?.toString().trim() || ''
 
-  if (!fullName || !email || !password) {
-    return { error: 'All fields are required!' }
+  const formState = { fullName, email, password }
+  const errors = validateSignUp(formState)
+
+  if (errors.length > 0) {
+    return { error: true, errors }
   }
 
-  return { fullName, email, password }
+  return { success: true, fullName, email, password }
 }

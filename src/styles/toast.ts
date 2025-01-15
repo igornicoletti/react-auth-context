@@ -1,8 +1,21 @@
 import { tv } from 'tailwind-variants'
 
+const animations = `
+  transition-all
+  data-[closed]:data-[enter]:translate-y-16
+  data-[enter]:transform
+  data-[closed]:opacity-0
+  data-[enter]:duration-300
+  data-[leave]:duration-200
+  data-[enter]:ease-out
+  data-[leave]:ease-in
+  data-[closed]:data-[enter]:sm:translate-x-72
+  data-[closed]:data-[enter]:sm:translate-y-0
+`
+
 export const toastVariants = tv({
   slots: {
-    container: 'relative pointer-events-auto min-w-80 max-w-md overflow-hidden rounded-lg bg-dracula-charcoal shadow-lg ring-1 ring-dracula-charcoal',
+    container: `relative pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-dracula-charcoal shadow-lg ring-1 ring-dracula-charcoal ${animations}`,
     message: 'flex items-start gap-3 p-4 pr-10',
     messageIcon: 'shrink-0 size-5 text-dracula-green',
     messageWrap: 'grid gap-1',
@@ -27,16 +40,5 @@ export const toastVariants = tv({
         messageIcon: 'text-dracula-orange'
       }
     }
-  }
-})
-
-export const toastTransitionVariants = tv({
-  slots: {
-    enter: 'transition-opacity duration-300 ease-in',
-    enterFrom: 'transform translate-y-16 sm:translate-y-0 sm:translate-x-16',
-    enterTo: 'transform translate-y-0 sm:translate-x-0',
-    leave: 'transition-opacity duration-300 ease-out',
-    leaveFrom: 'transform translate-y-0 sm:translate-x-0',
-    leaveTo: 'transform translate-y-16 sm:translate-y-0 sm:translate-x-16',
   }
 })

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { ThemeContextProps } from '../types'
 import { ThemeContext } from '../contexts'
+import { ThemeContextProps } from '../types'
 
 /**
  * Custom hook to access the current theme and toggle function.

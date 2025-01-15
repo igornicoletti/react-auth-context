@@ -1,25 +1,15 @@
 import { ActionFunction } from 'react-router-dom'
+import { validateSignIn } from '../../utils'
 
 export const signInAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const email = formData.get('email')?.toString().trim() || ''
   const password = formData.get('password')?.toString().trim() || ''
 
-  const errors: { [key: string]: string } = {}
+  const formState = { email, password }
+  const errors = validateSignIn(formState)
 
-  if (!email) {
-    errors.email = 'Email is required!'
-  } else if (!/\S+@\S+\.\S+/.test(email)) {
-    errors.email = 'Please provide a valid email address.'
-  }
-
-  if (!password) {
-    errors.password = 'Password is required.'
-  } else if (password.length < 6) {
-    errors.password = 'Password must be at least 6 characters long.'
-  }
-
-  if (Object.keys(errors).length > 0) {
+  if (errors.length > 0) {
     return { error: true, errors }
   }
 
